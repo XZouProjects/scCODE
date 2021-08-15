@@ -30,7 +30,7 @@ install.packages("BPSC_0.99.2.tar.gz", repos = NULL, type="source")
 
 install.packages("OGFSC_0.2.3.tar.gz", repos = NULL, type="source")
 
-## INSTALL scCODE
+## Install scCODE
 
 install.packages("scCODE_1.0.0.0.tar.gz", repos = NULL, type="source")
 
