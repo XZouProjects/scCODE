@@ -4,14 +4,18 @@
 install.packages("scCODE_0.0.0.9000.tar.gz", repos = NULL, type="source")
 ### Cran packages
 necessary1 <- c('doParallel', 'samr','doSNOW','pls','pheatmap')
+
 installed <- necessary1 %in% installed.packages()[, 'Package']
+
 if (length(necessary1[!installed]) >=1){
   install.packages(necessary1[!installed])
 }
 ### Bioconductor packages
 necessary2<-c('DESeq2', 'DEsingle', 
               'edgeR', 'limma', 'MAST', 'S4Vectors', 'scDD', 'scmap', 'SingleCellExperiment', 'SummarizedExperiment')
+              
 installed <- necessary2 %in% installed.packages()[, 'Package']
+
 if (length(necessary2[!installed]) >=1){
   if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
