@@ -27,33 +27,46 @@ if (length(necessary2[!installed]) >=1){
 #### BPSC @ https://github.com/nghiavtr/BPSC/releases/tag/v0.99.2
 
 install.packages("BPSC_0.99.2.tar.gz", repos = NULL, type="source")
+
 install.packages("OGFSC_0.2.3.tar.gz", repos = NULL, type="source")
 
 ## INSTALL scCODE
+
 install.packages("scCODE_1.0.0.0.tar.gz", repos = NULL, type="source")
 
 ## Run scCODE
+
 ### load package
+
 library(scCODE)
-#load data
+
+### load data
 ##This should be a matrix n genes by N cells, rowname should be gene names, colnames shall be cell names
+
 datarow<-data_sample 
-### The group information of cells, a factor. 1 for celltype 1, 2 for cell type 2 
+
+###The group information of cells, a factor. 1 for celltype 1, 2 for cell type 2 
 group<-group_sample
 
-###run CODE
-##light = True, run CODE in a light version, which saves time.
+### run CODE
+###light = True, run CODE in a light version, which saves time.
 
 results<-run_CODE(data_sample,group_sample,light = TRUE)
 
 ###The results is a list, which contains the AUCC and CDO matrix of methods, a conclusion of the optimal filtering method and DE method, and the DE results(DE gene name, p-adjust,fc) of the optimal method.
-Plot CODE
+
+### Plot CODE
 ###Plot results, evaluation heatmap
 
 CODE_plot(results)
-#Other information
+
+## Other information
 ### Type ?run_CODE for more information
+
 ?run_CODE
+
 ### You can also use any component function (DE function or filter function) individually
+
 ?CODE.BPSC (t_test,MAST…) ###for help of DE methods
+
 ?CODE.filter_OGFSC  ### for help of filtering methods.
