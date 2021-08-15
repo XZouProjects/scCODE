@@ -23,7 +23,7 @@ if (length(necessary2[!installed]) >=1){
   library(BiocManager)
   BiocManager::install(necessary2[!installed])
 }
-###Github package BPSC &OGFSC，download on the site below
+### Github package BPSC &OGFSC，download on the site below
 #### OGFSC download @ https://github.com/XZouProjects/OGFSC-R/blob/master/OGFSC_0.2.3.tar.gz
 #### BPSC @ https://github.com/nghiavtr/BPSC/releases/tag/v0.99.2
 
