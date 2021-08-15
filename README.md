@@ -1,4 +1,5 @@
 # scCODE
+scCODE (Single-Cell Consensus Optimization of Differentially Expressed gene detection)
 ## Installation
 #Package preparation
 install.packages("scCODE_0.0.0.9000.tar.gz", repos = NULL, type="source")
