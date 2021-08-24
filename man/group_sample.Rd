@@ -7,8 +7,8 @@
 \format{
 A factor length 462
 \describe{
-\item{1}{activated CD4T+ cells}
-\item{2}{naive CD4T+ cells}
+\item{1}{activated CD4+ T cells}
+\item{2}{naive CD4+ T cells}
 ...
 }
 }
@@ -19,6 +19,6 @@ A factor length 462
 group_sample
 }
 \description{
-A vector of 1 and 2, the group information of the cells. Here, 1 for activated CD4T+ cells, 2 for naive CD4T+ cells.
+A vector of 1 and 2, the group information of the cells. Here, 1 for activated CD4+ T cells, 2 for naive CD4+ T cells.
 }
 \keyword{datasets}
