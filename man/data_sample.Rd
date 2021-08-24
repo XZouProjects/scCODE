@@ -3,23 +3,22 @@
 \docType{data}
 \name{data_sample}
 \alias{data_sample}
-\title{Prices of 50,000 round cut diamonds.}
+\title{A scRNA-seq dataset containg activated and naive CD4+ T cells}
 \format{
-A data frame with 53940 rows and 10 variables:
+A conut matrix 13045 genes x 462 cells:
 \describe{
-\item{price}{price, in US dollars}
-\item{carat}{weight of the diamond, in carats}
+\item{row}{genes}
+\item{col}{cells}
 ...
 }
 }
 \source{
-\url{http://www.diamondse.info/}
+\url{https://science.sciencemag.org/content/355/6332/1433}
 }
 \usage{
 data_sample
 }
 \description{
-A dataset containing the prices and other attributes of almost 54,000
-diamonds.
+A scRNA-seq dataset containg activated and naive CD4+ T cells. 13045 genes x 462 cells.
 }
-\keyword{datasets}
+\keyword{scRNA-seq dataset}
