@@ -3,12 +3,12 @@
 \docType{data}
 \name{group_sample}
 \alias{group_sample}
-\title{Prices of 50,000 round cut diamonds.}
+\title{Group information of cells}
 \format{
 A factor length 462
 \describe{
-\item{price}{price, in US dollars}
-\item{carat}{weight of the diamond, in carats}
+\item{1}{activated CD4T+ cells}
+\item{2}{naive CD4T+ cells}
 ...
 }
 }
@@ -19,7 +19,6 @@ A factor length 462
 group_sample
 }
 \description{
-A dataset containing the prices and other attributes of almost 54,000
-diamonds.
+A vector of 1 and 2, the group information of the cells. Here, 1 for activated CD4T+ cells, 2 for naive CD4T+ cells.
 }
 \keyword{datasets}
