@@ -156,8 +156,11 @@ run_CODE<-function(datarow,group,light=TRUE){
     return(fc)
   }
   fc_optimal<-apply(data_m, 1, cal_fc)
-  Optimal_results<-cbind(DE_genes_opotimal,padj_optimal,fc_optimal)
-  colnames(Optimal_results)=c('DE genes','p-adjust','fold-change')
+  logfc<-log2(fc_optimal)
+  Optimal_results<-data.frame(DE_genes_opotimal,padj_optimal,logfc)
+  rownames(Optimal_results)=seq(nrow(Optimal_results))
+  colnames(Optimal_results)=c('DE genes','p-adjust','logFC')
+
   Ressults_all<-list()
   Ressults_all<-c(Ressults_all,list(resaucc),list(rescdo),list(optimal_solution),list(Optimal_results))
   names(Ressults_all)<-c('AUCC','CDO','Optimal_solution','Optimal_results')
