@@ -1,7 +1,7 @@
 #' CODE plot function
 #'
 #' Plot the results of run_CODE
-#' @param CODE_list results of run_CODE
+#' @param list results of run_CODE
 #' @return Heatmap of AUCC
 #' @return Heatmap of CDO
 #' @return Heatmap of Metrics (AUCC+CDO)

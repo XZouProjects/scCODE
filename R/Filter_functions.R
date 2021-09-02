@@ -15,7 +15,7 @@ NULL
 #' @export
 CODE.filter_OGFSC<-function(datarow){
   logmax<-log2(datarow+1)
-  OGF = OGFSC::OGFSC(logmax,nBins = 50, paral_option = 0, plot_option = 1,alpha=c(0.5, 0.6, 0.7, 0.8, 0.9, 0.99, 0.999, 0.9999))
+  OGF = OGFSC::OGFSC(logmax,nBins = 50, paral_option = 1, plot_option = 0,alpha=c(0.5, 0.6, 0.7, 0.8, 0.9, 0.99, 0.999, 0.9999))
   idx = OGF$OGFSC_idx #Genes remained after filtering by OGFSC
   return(idx)
 }

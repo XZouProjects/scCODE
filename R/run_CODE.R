@@ -59,7 +59,7 @@ run_CODE<-function(datarow,group,light=TRUE){
     run_func<-paste0('CODE.',de,'(datarow,group)')
     res_temp<-eval(parse(text = run_func))
     ### adjust p value<=0.05
-    res_temp<-p.adjust(res_temp,method = 'fdr')
+    res_temp<-stats::p.adjust(res_temp,method = 'fdr')
     idx_sig=which(res_temp<=.05)
     ## top 500 DE genes
     n_gene=min(500,length(idx_sig))
