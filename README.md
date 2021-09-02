@@ -3,6 +3,7 @@ scCODE (Consensus Optimization of Differentially Expressed gene detection for si
 ## Installation
 
 ## Package preparation
+R version >=3.6.3
 
 ### Cran packages
 necessary1 <- c('doParallel', 'samr','doSNOW','pls','pheatmap')
