@@ -7,7 +7,7 @@
 CODE_plot(list)
 }
 \arguments{
-\item{CODE_list}{results of run_CODE}
+\item{list}{results of run_CODE}
 }
 \value{
 Heatmap of AUCC

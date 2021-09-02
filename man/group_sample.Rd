@@ -3,17 +3,17 @@
 \docType{data}
 \name{group_sample}
 \alias{group_sample}
-\title{Group information of cells}
+\title{group information of dataset.}
 \format{
 A factor length 462
 \describe{
-\item{1}{activated CD4+ T cells}
-\item{2}{naive CD4+ T cells}
+\item{factor 1}{activated CD4+ T cells}
+\item{factor 2}{naive CD4+ T cells}
 ...
 }
 }
 \source{
-\url{http://www.diamondse.info/}
+\url{https://www.science.org/doi/full/10.1126/science.aah4115}
 }
 \usage{
 group_sample

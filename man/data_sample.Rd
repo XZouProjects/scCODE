@@ -7,13 +7,13 @@
 \format{
 A conut matrix 13045 genes x 462 cells:
 \describe{
-\item{row}{genes}
-\item{col}{cells}
+\item{row}{gene name}
+\item{column}{cell name}
 ...
 }
 }
 \source{
-\url{https://science.sciencemag.org/content/355/6332/1433}
+\url{https://www.science.org/doi/full/10.1126/science.aah4115}
 }
 \usage{
 data_sample
@@ -21,4 +21,4 @@ data_sample
 \description{
 A scRNA-seq dataset containg activated and naive CD4+ T cells. 13045 genes x 462 cells.
 }
-\keyword{scRNA-seq dataset}
+\keyword{datasets}
