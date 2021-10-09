@@ -6,7 +6,7 @@ scCODE (Consensus Optimization of Differentially Expressed gene detection for si
 R version >=3.6.3
 
 ### Cran packages
-necessary1 <- c('doParallel', 'samr','doSNOW','pls','pheatmap')
+necessary1 <- c('doParallel', 'samr','doSNOW','pls','pheatmap', 'writexl')
 
 installed <- necessary1 %in% installed.packages()[, 'Package']
 
@@ -53,10 +53,12 @@ group<-group_sample
 
 ### run CODE
 ###light = True, run CODE in a light version, which saves time.
+###outdir, path to save results.
+###nts, number of the top suitable strategies for consensus optimization, range 5-10.
 
-results<-run_CODE(data_sample,group_sample,light = TRUE)
+results<-run_CODE(data_sample,group_sample,light = TRUE,outdir=’./’,nts=5)
 
-###The results is a list, which contains the AUCC and CDO matrix of methods, a conclusion of the optimal filtering method and DE method, and the DE results(DE gene name, p-adjust,fc) of the optimal method.
+###The results will be saved in the path file, where contains an excel of consensus DE information, 3 excel of all the DE results by conquer, OGFSC and scmap filtering.
 
 ### Plot CODE
 ###Plot results, evaluation heatmap
