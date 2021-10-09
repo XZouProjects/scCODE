@@ -4,7 +4,7 @@
 \alias{run_CODE}
 \title{Consensus Optimization of Differentially Expressed gene detection in single-cell RNA-seq data}
 \usage{
-run_CODE(datarow, group, light = TRUE)
+run_CODE(datarow, group, light = TRUE, outdir, nts = 5)
 }
 \arguments{
 \item{datarow}{matrix, data matrix after filtering.}
@@ -12,6 +12,10 @@ run_CODE(datarow, group, light = TRUE)
 \item{group}{vector, cell type information (eg: 1 for cell type 1, 2 for cell type 2)}
 
 \item{light}{True or False, run CODE in a light version (apply on part of methods which averagely perform well), default as False (runing with all methods).}
+
+\item{outdir}{Path to save DE gene identification results.}
+
+\item{nts}{number of top-ranked strategies for consensus optimization, 5 =< nts <= 10.}
 }
 \value{
 AUCC, matrix results of combinations of methods.
@@ -28,9 +32,7 @@ and provides with personalized optimal DE result.
 }
 \examples{
 set.seed(123)
-datarow=data_sample
-group=group_sample
-run_CODE(datarow,group,light=TRUE)
+run_CODE(data_sample,group_sample,light=TRUE,outdir='./',nts=5)
 }
 \author{
 Jiawei Zou
