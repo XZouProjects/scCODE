@@ -5,6 +5,8 @@
 #' @param datarow matrix, data matrix after filtering.
 #' @param group vector, cell type information (eg: 1 for cell type 1, 2 for cell type 2)
 #' @param light True or False, run CODE in a light version (apply on part of methods which averagely perform well), default as False (runing with all methods).
+#' @param nts number of top-ranked strategies for consensus optimization, 5 =< nts <= 10.
+#' @param outdir Path to save DE gene identification results.
 #' @return AUCC, matrix results of combinations of methods.
 #' @return CDO, matrix results of combinations of methods.
 #' @return Optimal solution, optimal combination of methods for the data.
@@ -13,12 +15,21 @@
 #' @export
 #' @examples
 #' set.seed(123)
-#' datarow=data_sample
-#' group=group_sample
-#' run_CODE(datarow,group,light=TRUE)
-run_CODE<-function(datarow,group,light=TRUE){
+#' run_CODE(data_sample,group_sample,light=TRUE,outdir='./',nts=5)
+run_CODE<-function(datarow,group,light=TRUE,outdir,nts=5){
   data_ori<-datarow
   group_ori<-group
+  nts<-stats::median(c(nts,5,10))### top 5 - 10 consensus
+  ### appeared later in group as cell type 2
+  idx2<-which(group==unique(group)[2])
+  ##cal_fc for each optimal DE genes detected
+  cal_fc<-function(data){
+    ex_1<-data[-idx2]
+    ex_2<-data[idx2]
+    fc<-mean(ex_1)/mean(ex_2)
+    return(fc)
+  }
+
   if(light==TRUE){
     DEmethods<-rev(c('MAST','t_test','BPSC','wilcox_test','DESeq2','limma','edgeR'))
     filtermethods<-c(1:3)
@@ -26,7 +37,11 @@ run_CODE<-function(datarow,group,light=TRUE){
     DEmethods<-rev(c('scDD','MAST','t_test','BPSC','wilcox_test','samr','DESeq2','limma','DEsingle','edgeR'))
     filtermethods<-c(1:4)
   }
-  padj_list<-list()
+
+  padj_list<-list()### adjust p value record
+
+  fc_list<-list()### foldchange record
+
   for(filt in filtermethods){
     if(filt==1){
       ###filtering by OGFSC
@@ -40,7 +55,7 @@ run_CODE<-function(datarow,group,light=TRUE){
           ###filtering by scmap
           idx<-CODE.filter_scmap(data_ori)
         }else{
-          ###without filtering
+          ###no filter
           idx=which(rowSums(data_ori)>0)
         }
       }
@@ -52,9 +67,13 @@ run_CODE<-function(datarow,group,light=TRUE){
     datarow=datarow[,-idx_c]
     group=group_ori[-idx_c]
   }
+
   ###gene name
   genename<-rownames(datarow)
-  list_temp<-list()
+
+  list_temp<-list() ### Gene name record
+
+  list_seperated<-list() ### save seperated by gene filtering method
   for (de in DEmethods) {
     run_func<-paste0('CODE.',de,'(datarow,group)')
     res_temp<-eval(parse(text = run_func))
@@ -67,21 +86,36 @@ run_CODE<-function(datarow,group,light=TRUE){
     ### padj record
     padj_temp<-res_temp[idx_sig]
     res_temp<-genename[idx_sig]
+    idx_fc_temp<-match(res_temp,rownames(data_ori))
+    data_m<-data_ori[idx_fc_temp,]
+    fc_temp<-apply(data_m, 1, cal_fc)
     ### DE gene record
+    ####
     list_temp=c(list_temp,list(res_temp))
     padj_list=c(padj_list,list(padj_temp))
+    fc_list=c(fc_list,list(fc_temp))
+    logfc_temp<-log2(fc_temp)
+    seperate_temp<-data.frame(res_temp,logfc_temp,padj_temp)
+    colnames(seperate_temp)<-c('Gene name','logFC','P-adjust')
+
+    list_seperated<-c(list_seperated,list(seperate_temp))
 
   }
+  names(list_seperated)<-DEmethods
   if(filt==1){
     list_OGFSC<-list_temp
+    writexl::write_xlsx(list_seperated,paste0(outdir,'/OGFSC_results.xlsx'))
   }else{
     if(filt==2){
       list_conquer<-list_temp
+      writexl::write_xlsx(list_seperated,paste0(outdir,'/conquer_results.xlsx'))
     }else{
       if(filt==3){
         list_scmap<-list_temp
+        writexl::write_xlsx(list_seperated,paste0(outdir,'/scmap_results.xlsx'))
       }else{
         list_without<-list_temp
+        writexl::write_xlsx(list_seperated,paste0(outdir,'/no_filter_results.xlsx'))
       }
     }
   }
@@ -125,45 +159,69 @@ run_CODE<-function(datarow,group,light=TRUE){
     rownames(resaucc)=c('OGFSC','conquer','scmap')
     colnames(resaucc)=DEmethods
   }
+
+  # Methods rank and consensus of results
+  ##
+  ###
+
   res_all=rescdo+resaucc
   res_t=NULL
   for (nc in 1:nrow(res_all)) {
     res_t<-c(res_t,as.numeric(res_all[nc,]))
   }
-  idx_optimal=which(res_t==max(res_t))
-  ##optimal filter method
-  optimal_filter<-c('OGFSC','conquer','scmap','without_filter')[idx_optimal%/%length(DEmethods)+1]
-  ##optimal DE method
-  if(idx_optimal%%length(DEmethods)==0){
-    optimal_de<-DEmethods[length(DEmethods)]
-  }else{
-    optimal_de<-DEmethods[idx_optimal%%length(DEmethods)]
+  idx_optimal=order(res_t,decreasing = T)[1:nts]####top suitable strategies consensus
+  consensus_res<-NULL
+  info_all<-NULL
+  for (i in idx_optimal) {
+    gene_temp<-list_all[[i]]
+    n_gene_temp<-length(gene_temp)
+    fc_temp<-fc_list[[i]]
+    padj_temp<-padj_list[[i]]
+    consensus_temp<-cbind(gene_temp,fc_temp,padj_temp)
+    consensus_res<-rbind(consensus_res,consensus_temp)
+    ##optimal filter method
+    optimal_filter<-c('OGFSC','conquer','scmap','without_filter')[min(i%/%length(DEmethods)+1,4)]
+    ##optimal DE method
+    if(i%%length(DEmethods)==0){
+      optimal_de<-DEmethods[length(DEmethods)]
+    }else{
+      optimal_de<-DEmethods[i%%length(DEmethods)]
+    }
+    ##information of the method
+    info_temp<-c(n_gene_temp,optimal_filter,optimal_de)
+    info_all<-rbind.data.frame(info_all,info_temp)
   }
-  ##optimal solution exhibition
-  optimal_solution<-paste0('The optimal solution for your data is ',optimal_filter,' + ',optimal_de)
-  ## p.adj for optimal DE genes
-  padj_optimal=padj_list[[idx_optimal]]
-  DE_genes_opotimal=list_all[[idx_optimal]]
-  idx_m=match(DE_genes_opotimal,rownames(data_ori))
-  data_m=data_ori[idx_m,]
-  ### appeared later in group as cell type 2
-  idx2<-which(group_ori==unique(group_ori)[2])
-  ##cal_fc for each optimal DE genes detected
-  cal_fc<-function(data){
-    ex_1<-data[-idx2]
-    ex_2<-data[idx2]
-    fc<-mean(ex_1)/mean(ex_2)
-    return(fc)
-  }
-  fc_optimal<-apply(data_m, 1, cal_fc)
-  logfc<-log2(fc_optimal)
-  Optimal_results<-data.frame(DE_genes_opotimal,padj_optimal,logfc)
-  rownames(Optimal_results)=seq(nrow(Optimal_results))
-  colnames(Optimal_results)=c('DE genes','p-adjust','logFC')
+  colnames(info_all)<-c('n_gene','Filter','DE')
+  n_median<-stats::median(info_all$n_gene)
+  consensus_res<-as.data.frame(consensus_res)
+  ###gene freq
+  counta<-table(consensus_res$gene_temp)
+  counta<-sort(counta,decreasing = T)
+  ##logFC
+  idx_c<-match(names(counta),consensus_res$gene_temp)
+  fca<-consensus_res$fc_temp[idx_c]
+  logfc<-log2(as.numeric(fca))
+  ###P adjust (mininum)
+  consensus_res<-consensus_res[order(consensus_res$padj_temp),]
+  idx_p<-match(names(counta),consensus_res$gene_temp)
+  p_adj<-consensus_res$padj_temp[idx_p]
+  ##consensus results combined
+  consensus_res<-data.frame(counta,logfc,p_adj)
+  colnames(consensus_res)=c('Gene_name','Detected_times','logFC','P_adjust')
+  ####rank by logFC
+  idxf<-order(abs(consensus_res$logFC),decreasing = T)
+  test<-consensus_res[idxf,]
 
-  Ressults_all<-list()
-  Ressults_all<-c(Ressults_all,list(resaucc),list(rescdo),list(optimal_solution),list(Optimal_results))
-  names(Ressults_all)<-c('AUCC','CDO','Optimal_solution','Optimal_results')
+  ###test conbined results
+  test<-test[order(test$Detected_times,decreasing = T),]
+  #####n gene rank first by freq, then by fc
+  consensus_res<-test[1:n_gene,]
+
+  rownames(consensus_res)=seq(nrow(consensus_res))
+
+  Ressults_all<-c(list(data.frame(resaucc)),list(data.frame(rescdo)),list(data.frame(info_all)),list(data.frame(consensus_res)))
+  names(Ressults_all)<-c('AUCC','CDO','Strategy info','Consensus results')
+  writexl::write_xlsx(Ressults_all, paste0(outdir,'/consensus results.xlsx'))
   cat('\nAnalysis Finished\n')
   return(Ressults_all)
 }
@@ -238,7 +296,7 @@ cal_cdo=function(listall){
       idx_tm[is.na(idx_tm)]=length(listall[[i]])+length(res)/2
       idx_ave=mean(idx_tm)-length(res)/2
       porp_ave=idx_ave/length(listall[[i]])
-      porp_ave=1-porp_ave#####近似最大假设为1，此时认为prop_ave值越大表示detective的能力越强,近似归一化
+      porp_ave=1-porp_ave#####normalization
       pos_all=c(pos_all,porp_ave)
 
     }
