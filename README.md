@@ -1,3 +1,6 @@
+![图片](https://user-images.githubusercontent.com/17633478/137339355-b4339284-ecbf-4c44-9449-8b6f76444d5d.png)
+
+
 # scCODE
 scCODE (Consensus Optimization of Differentially Expressed gene detection for single cell)
 ## Installation
