@@ -53,21 +53,23 @@ group<-group_sample
 
 ### run CODE
 ###light = True, run CODE in a light version, which saves time.
+
 ###outdir, path to save results.
+
 ###nts, number of the top suitable strategies for consensus optimization, range 5-10.
 
 results<-run_CODE(data_sample,group_sample,light = TRUE,outdir=’./’,nts=5)
 
-###The results will be saved in the path file, where contains an excel of consensus DE information, 3 excel of all the DE results by conquer, OGFSC and scmap filtering.
+###The results will be saved in the path file, where contains an excel of consensus DE information, 3 excels of all the DE results by conquer, OGFSC and scmap filtering.
 
-### Plot CODE
+### plot CODE
 ###Plot results, evaluation heatmap
 
 CODE_plot(results)
 
 ## Other information
 
-### Type ?run_CODE for more information
+### More information about scCODE
 
 ?run_CODE
 
