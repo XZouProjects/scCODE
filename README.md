@@ -3,7 +3,6 @@
 scCODE (Consensus Optimization of Differentially Expressed gene detection for single cell)
 ## Installation
 
-## Package preparation
 R version >=3.6.3
 
 ### Cran packages
@@ -34,7 +33,7 @@ install.packages("BPSC_0.99.2.tar.gz", repos = NULL, type="source")
 
 install.packages("OGFSC_0.2.3.tar.gz", repos = NULL, type="source")
 
-## Install scCODE
+### Install scCODE
 
 install.packages("scCODE_1.0.0.0.tar.gz", repos = NULL, type="source")
 
@@ -67,11 +66,12 @@ results<-run_CODE(data_sample,group_sample,light = TRUE,outdir=’./’,nts=5)
 CODE_plot(results)
 
 ## Other information
+
 ### Type ?run_CODE for more information
 
 ?run_CODE
 
-### You can also use any component function (DE function or filter function) individually
+### Information about the optional DE and gene filtering methods
 
 ?CODE.BPSC (t_test,MAST…) ###for help of DE methods
 
