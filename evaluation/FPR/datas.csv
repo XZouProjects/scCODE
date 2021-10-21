@@ -1,0 +1,21 @@
+Data,organism,Cellgroup,Protocol,Protocol type,cells,celltype1,celltype2,typeforfpr,nbin,typ
+GSE45719,Mus musculus,16-cell stage blastomere,SMART-Seq,full-length,50,16-cell stage blastomere,Mid blastocyst cell (92-94h post-fertilization),16-cell stage blastomere,20,1
+GSE74596,Mus musculus,Single_cell_RNA-seq_NKT0,SMART-Seq2,full-length,45,Single_cell_RNA-seq_NKT0,Single_cell_RNA-seq_NKT17,Single_cell_RNA-seq_NKT0,20,1
+GSE48968-GPL13112,Mus musculus,BMDC (1h LPS Stimulation),SMARTer C1,full-length,96,BMDC (1h LPS Stimulation),BMDC (4h LPS Stimulation),BMDC (1h LPS Stimulation),25,1
+EMTAB2805,Mus musculus,G2M,SMARTer C1,full-length,96,G1,G2M,G2M,20,2
+GSE60749-GPL13112,Mus musculus,v6.5 mouse embryonic stem cells: culture conditions: serum+LIF,SMARTer C1,full-length,94,v6.5 mouse embryonic stem cells,culture conditions: serum+LIF,culture conditions: 2i+LIF,50,3
+GSE48968-GPL17021-125bp,Mus musculus,Bone Marrow Dendritic Cells ,SMARTer C1,full-length,465,Bone Marrow Dendritic Cells,BMDC (On Chip 4h LPS Stimulation),Bone Marrow Dendritic Cells,20,1
+GSE57872,Homo sapiens,Single cell mRNA-seq_MGH30,SMART-Seq,full-length,192,Single cell mRNA-seq_MGH30,Single cell mRNA-seq_MGH28,Single cell mRNA-seq_MGH30,20,1
+GSE62270-GPL17021,Mus musculus,Randomly extracted Reg4-positive intestinal cells,CEL-Seq,UMI,683,Randomly extracted Reg4-positive intestinal cells,Randomly extracted cells from whole intestinal organoids,Randomly extracted Reg4-positive intestinal cells,20,1
+GSE63818-GPL16791,Homo sapiens,Primordial Germ Cells.developmental stage: 19 week gestation,Tang,full-length,57,Primordial Germ Cells,nosense,developmental stage: 19 week gestation,20,3
+GSE64016,Homo sapiens,single H1 hESC,SMARTer C1,full-length,213,single H1 hESC,nosense,single H1 hESC,20,1
+GSE71982,Mus musculus,Vestibular epithelium.purification: Enzymatic/mechanical,SMARTer C1,full-length,160,Vestibular epithelium,nosense,purification: Enzymatic/mechanical,20,3
+GSE77847,Mus musculus,"sample type: cKit+ Flt3ITD/ITD,Dnmt3afl/- MxCre  AML-1",SMARTer C1,full-length,48,primary AML,nosense,"sample type: cKit+ Flt3ITD/ITD,Dnmt3afl/- MxCre  AML-1",20,3
+GSE78779-GPL17021,Mus musculus,Fibloblasts.Expression_C1_96_cells,CEL-Seq/CEL-Seq2/Smart-Seq,UMI,96,Fibloblasts,BMDCs,Fibloblasts.Expression_C1_96_cells,20,3
+GSE79102,Homo sapiens,subject id: patient 2 ,SMART-Seq2,full-length,96,patient 2 single cell RNA-Seq,nosense,patient 2 single cell RNA-Seq,20,1
+GSE80232,Mus musculus,"Mus musculus retina, P17.genotype: Vsx2-GFP",Smart-Seq2,full-length,288,"Mus musculus retina, P17",nosense,"Mus musculus retina, P17",20,1
+GSE81076-GPL18573,Homo sapiens,cell type: live sorted cells ,CEL-Seq,UMI,768,human pancreas,nosense,cell type: live sorted cells,20,3
+GSE102299-smartseq2,Mus musculus,innate lymphoid cells from mouse lungs after IL33 treatment,Smart-Seq2,full-length,282,Intranasal administration of IL-33 daily for 3 consecutive days.,nosense,Intranasal administration of IL-33 daily for 3 consecutive days.,20,1
+GSE94383,Mus musculus,time point: 150 min.condition: LPS ,Smart-Seq2,full-length,368,condition: LPS,nosense,time point: 150 min,20,3
+EMTAB3929,Homo sapiens,embryonic day 6.No ,Smart-Seq2,full-length,363,No,nosense,embryonic day 6,20,3
+SRP073808,Homo sapiens,H7hESC,SMARTer C1,full-length,77,H7hESC,nosense,H7hESC,20,1
