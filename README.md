@@ -58,23 +58,23 @@ group<-group_sample
 
 ###nts, number of the top suitable strategies for consensus optimization, range 5-10.
 
-results<-run_CODE(data_sample,group_sample,light = TRUE,outdir=’./’,nts=5)
+results<-scCODE(data_sample,group_sample,light = TRUE,outdir=’./’,nts=5)
 
 ###The results will be saved in the path file, where contains an excel of consensus DE information, 3 excels of all the DE results by conquer, OGFSC and scmap filtering.
 
 ### plot CODE
 ###Plot results, evaluation heatmap
 
-CODE_plot(results)
+scCODE_plot(results)
 
 ## Other information
 
 ### More information about scCODE
 
-?run_CODE
+?scCODE
 
 ### Information about the optional DE and gene filtering methods
 
-?CODE.BPSC (t_test,MAST…) ###for help of DE methods
+?scCODE.BPSC (t_test,MAST…) ###for help of DE methods
 
-?CODE.filter_OGFSC  ### for help of filtering methods.
+?scCODE.filter_OGFSC  ### for help of filtering methods.
