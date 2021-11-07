@@ -10,13 +10,13 @@
 #' set.seed(123)
 #' datarow=data_sample
 #' group=group_sample
-#' CODE.t_test(datarow,group)
-#' @name temp
+#' scCODE.t_test(datarow,group)
+#' @name DEfun
 NULL
 
-#' @rdname temp
+#' @rdname DEfun
 #' @export
-CODE.BPSC <- function(datarow, group) {
+scCODE.BPSC <- function(datarow, group) {
   chk <- Sys.getenv("_R_CHECK_LIMIT_CORES_", "")
   if (nzchar(chk) && chk == "TRUE") {
     # use 2 cores in CRAN/Travis/AppVeyor
@@ -37,9 +37,9 @@ CODE.BPSC <- function(datarow, group) {
 }
 
 
-#' @rdname temp
+#' @rdname DEfun
 #' @export
-CODE.t_test<-function(datarow,group){
+scCODE.t_test<-function(datarow,group){
   idx2=which(group==unique(group)[2])
   ttestfun<-function(x){
     tx<-x[idx2]
@@ -53,9 +53,9 @@ CODE.t_test<-function(datarow,group){
   return(results)
 }
 
-#' @rdname temp
+#' @rdname DEfun
 #' @export
-CODE.DESeq2<-function(datarow,group){
+scCODE.DESeq2<-function(datarow,group){
   ##integer
   datarow_in<-apply(datarow, 2, as.integer)
 
@@ -75,9 +75,9 @@ CODE.DESeq2<-function(datarow,group){
   return(results)
 }
 
-#' @rdname temp
+#' @rdname DEfun
 #' @export
-CODE.MAST<-function(datarow,group){
+scCODE.MAST<-function(datarow,group){
   logdata=log2(datarow+1)
   cData<-data.frame(wellKey=paste0('C',1:dim(logdata)[2]))
   fData<-data.frame(primerid=rownames(logdata))
@@ -92,9 +92,9 @@ CODE.MAST<-function(datarow,group){
   return(results)
 }
 
-#' @rdname temp
+#' @rdname DEfun
 #' @export
-CODE.wilcox_test<-function(datarow,group){
+scCODE.wilcox_test<-function(datarow,group){
   idx2=which(group==unique(group)[2])
   wilcoxtestfun<-function(x){
     tx<-x[idx2]
@@ -108,17 +108,23 @@ CODE.wilcox_test<-function(datarow,group){
   return(results)
 }
 
-#' @rdname temp
+#' @rdname DEfun
 #' @export
-CODE.DEsingle<-function(datarow,group){
+scCODE.DEsingle<-function(datarow,group){
+  genename=rownames(datarow)
+  datatest=apply(datarow, 2, as.integer)
+  rownames(datarow)=genename
+  datarow=data.frame(datarow)
   results <- try(DEsingle::DEsingle(counts = datarow,group = group,parallel = T),silent = T)
+  idxdes<-match(rownames(datarow),rownames(results))
+  results=results[idxdes,]
   results=results$pvalue
   return(results)
 }
 
-#' @rdname temp
+#' @rdname DEfun
 #' @export
-CODE.edgeR<-function(datarow,group){
+scCODE.edgeR<-function(datarow,group){
   dgelist=edgeR::DGEList(counts = datarow, group = group)
   ### TMM method
   dgelist_norm <- try(edgeR::calcNormFactors(dgelist, method = 'TMM'),silent=T)
@@ -130,9 +136,9 @@ CODE.edgeR<-function(datarow,group){
   return(results)
 }
 
-#' @rdname temp
+#' @rdname DEfun
 #' @export
-CODE.samr<-function(datarow,group){
+scCODE.samr<-function(datarow,group){
   data=list(x=datarow,y=group,geneid=as.character(1:nrow(datarow)),
             genenames=rownames(datarow),logged2=TRUE)
   res=try(samr::samr(data,resp.type = 'Two class unpaired',nperms = 1000),silent = T)
@@ -140,9 +146,9 @@ CODE.samr<-function(datarow,group){
   return(results)
 }
 
-#' @rdname temp
+#' @rdname DEfun
 #' @export
-CODE.limma<-function(datarow,group){
+scCODE.limma<-function(datarow,group){
   idx2=which(group==unique(group)[2])
   limmagroup<-c(rep('control',dim(datarow)[2]))
   limmagroup[idx2]='fake'
@@ -160,10 +166,10 @@ CODE.limma<-function(datarow,group){
   return(results)
 }
 
-#' @rdname temp
+#' @rdname DEfun
 #' @export
 #' @import SingleCellExperiment
-CODE.scDD<-function(datarow,group){
+scCODE.scDD<-function(datarow,group){
   names(group)=colnames(datarow)
   condition=group
   idx=which(colSums(datarow)==0)
