@@ -4,10 +4,10 @@
 \alias{run_CODE}
 \title{Consensus Optimization of Differentially Expressed gene detection in single-cell RNA-seq data}
 \usage{
-run_CODE(datarow, group, light = TRUE, outdir, nts = 5)
+run_CODE(data, group, light = TRUE, outdir, nts = 5)
 }
 \arguments{
-\item{datarow}{matrix, data matrix after filtering.}
+\item{data}{matrix, data matrix after filtering.}
 
 \item{group}{vector, cell type information (eg: 1 for cell type 1, 2 for cell type 2)}
 

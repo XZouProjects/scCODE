@@ -2,16 +2,16 @@
 % Please edit documentation in R/Filter_functions.R
 \name{filter}
 \alias{filter}
-\alias{CODE.filter_OGFSC}
-\alias{CODE.filter_conquer}
-\alias{CODE.filter_scmap}
+\alias{scCODE.filter_OGFSC}
+\alias{scCODE.filter_conquer}
+\alias{scCODE.filter_scmap}
 \title{Gene filtering methods used in CODE}
 \usage{
-CODE.filter_OGFSC(datarow)
+scCODE.filter_OGFSC(datarow)
 
-CODE.filter_conquer(datarow)
+scCODE.filter_conquer(datarow)
 
-CODE.filter_scmap(datarow)
+scCODE.filter_scmap(datarow)
 }
 \arguments{
 \item{datarow}{matrix, data matrix after filtering.}
@@ -25,7 +25,7 @@ Gene filtering methods used in CODE (Consensus Optimization of Differentially Ex
 \examples{
 set.seed(123)
 datarow=data_sample
-CODE.filter_OGFSC(datarow)
+scCODE.filter_OGFSC(datarow)
 }
 \author{
 Jiawei Zou
