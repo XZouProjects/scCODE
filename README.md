@@ -77,7 +77,7 @@ group<-group_sample
 ###nts, number of the top suitable strategies for consensus optimization, range 5-10.
 
 
-results<-scCODE(data_sample,group_sample,light = TRUE,outdir=’./’,nts=5)
+results<-scCODE(data_row,group,light = TRUE,outdir="./",nts=5)
 
 
 ###The results will be saved in the path file, where contains an excel of consensus DE information, 3 excels of all the DE results by conquer, OGFSC and scmap filtering.
