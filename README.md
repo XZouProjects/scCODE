@@ -5,38 +5,35 @@ scCODE (Consensus Optimization of Differentially Expressed gene detection for si
 
 ## Installation
 
+    necessary1 <- c('doParallel', 'samr','doSNOW','pls')
 
-$ necessary1 <- c('doParallel', 'samr','doSNOW','pls')
-
-$ installed <- necessary1 %in% installed.packages()[, 'Package']
+    installed <- necessary1 %in% installed.packages()[, 'Package']
 
 
-  if (length(necessary1[!installed]) >=1){
+    if (length(necessary1[!installed]) >=1){
 
-   install.packages(necessary1[!installed])
+      install.packages(necessary1[!installed])
   
-  }
+     }
 
-  necessary2<-c('DESeq2', 'DEsingle', 
+    necessary2<-c('DESeq2', 'DEsingle', 
               'edgeR', 'limma', 'MAST', 'S4Vectors', 'scDD', 'scmap', 'SingleCellExperiment', 'SummarizedExperiment')
               
               
-  installed <- necessary2 %in% installed.packages()[, 'Package']
+    installed <- necessary2 %in% installed.packages()[, 'Package']
 
 
-  if (length(necessary2[!installed]) >=1){
+    if (length(necessary2[!installed]) >=1){
 
+      if (!requireNamespace("BiocManager", quietly = TRUE))
   
-  if (!requireNamespace("BiocManager", quietly = TRUE))
-  
+        install.packages("BiocManager")
     
-    install.packages("BiocManager")
+        library(BiocManager)
     
-    library(BiocManager)
+        BiocManager::install(necessary2[!installed])
     
-    BiocManager::install(necessary2[!installed])
-    
-   }
+      }
    
 Github package BPSC & OGFSC，cheeck if these packages were installed, and if not, they could be downloaded at the site below.
 OGFSC download @ https://github.com/XZouProjects/OGFSC-R/blob/master/OGFSC_0.2.3.tar.gz
