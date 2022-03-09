@@ -50,23 +50,35 @@ scCODE_cdo=function(listall,list_order){
   ## detected by more than 90% of methods (can adjust to lower), and no less than 5 genes
   thres=0.9
   res=test$temp[which(test$Freq>=(l*thres))]
-  while((length(res)<5)&(thres>=0.7)){
+  while((length(res)<5)&(thres>=0.75)){
     thres=thres-0.05
     res=test$temp[which(test$Freq>=(l*thres))]
   }
+
   pos_all=NULL
   ###calculate CDO in all gene order
   for (i in 1:l) {
     idx_tm=match(res,list_order[[i]])
+
+    if(length(idx_tm)==0){
+      porp_ave=0.05
+    }else{
+
     ###balance to be 0-1
     idx_tm[is.na(idx_tm)]=(2*length(list_order[[i]])-length(res)+1)/2
     idx_ave=sum(idx_tm)
     porp_ave=(idx_ave-(length(res)*(length(res)+1))/2)/(length(res)*(length(list_order[[i]])-length(res)))
+    if((length(res)*(length(list_order[[i]])-length(res)))==0){
+      porp_ave=0.5
+    }
     porp_ave=1-porp_ave#####CDO
-
+    
+    
     if(porp_ave<=0){
       porp_ave=0.05###punishment for too less DE gene detected
     }
+    }
+
     pos_all=c(pos_all,porp_ave)
 
   }

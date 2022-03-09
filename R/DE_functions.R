@@ -89,6 +89,7 @@ scCODE.MAST<-function(datarow,group){
   summaryDt <- summarycond$datatable
   fcHurdle <- summaryDt[summaryDt$contrast=='cond2' & summaryDt$component=='H',]#logFC coefficients
   results=fcHurdle$`Pr(>Chisq)`
+  results<-results
   return(results)
 }
 
@@ -141,7 +142,7 @@ scCODE.edgeR<-function(datarow,group){
 scCODE.samr<-function(datarow,group){
   data=list(x=datarow,y=group,geneid=as.character(1:nrow(datarow)),
             genenames=rownames(datarow),logged2=TRUE)
-  res=try(samr::samr(data,resp.type = 'Two class unpaired',nperms = 1000),silent = T)
+  res=try(samr::samr(data,resp.type = 'Two class unpaired',nperms = 200),silent = T)
   results=samr::samr.pvalues.from.perms(res$tt, res$ttstar)
   return(results)
 }
