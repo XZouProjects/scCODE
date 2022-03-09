@@ -39,13 +39,13 @@ Most dependent packages can be installed by the code below:
    
 Two packages OGFSC and BPSC are required and need to install from Github.
 
-First, check if we have already install the two packages by :
+First, check if we have already installed the two packages by :
 
     'OGFSC'%in% installed.packages()
     
     'BPSC'%in% installed.packages()
     
-If not, we can down load the installation file and install them through [OGFSC](https://github.com/XZouProjects/OGFSC-R/blob/master/OGFSC_0.2.3.tar.gz) and [BPSC](https://github.com/nghiavtr/BPSC/releases/tag/v0.99.2)
+If not, we can download the installation file and install them through [OGFSC](https://github.com/XZouProjects/OGFSC-R/blob/master/OGFSC_0.2.3.tar.gz) and [BPSC](https://github.com/nghiavtr/BPSC/releases/tag/v0.99.2)
 
 ## Install scCODE
 
@@ -68,7 +68,7 @@ The input also requires a vector, group, which is the cell group information of 
     group<-group_sccode
 
 
-There are tow parameters selectable. "light", True or False, default as True, run scCODE in a light version which saves time. "top_ranked", the number of top-ranked strategies selected (5-10), default as 5.
+There are two parameters selectable. "light", True or False, default as True, run scCODE in a light version which saves time. "top_ranked", the number of top-ranked strategies selected (5-10), default as 5.
 
 Now, we can run the sample data like below:
 
