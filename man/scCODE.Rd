@@ -4,7 +4,7 @@
 \alias{scCODE}
 \title{Consensus Optimization of Differentially Expressed gene detection in single-cell RNA-seq data}
 \usage{
-scCODE(data, group, light = TRUE, outdir, nts = 5)
+scCODE(data, group, light = TRUE, top_ranked = 5)
 }
 \arguments{
 \item{data}{matrix, data matrix after filtering.}
@@ -13,26 +13,23 @@ scCODE(data, group, light = TRUE, outdir, nts = 5)
 
 \item{light}{True or False, run CODE in a light version (apply on part of methods which averagely perform well), default as False (runing with all methods).}
 
-\item{outdir}{Path to save DE gene identification results.}
-
-\item{nts}{number of top-ranked strategies for consensus optimization, 5 =< nts <= 10.}
+\item{top_ranked}{number of top-ranked strategies for consensus optimization, 5 <= top_ranked <= 10.}
 }
 \value{
-AUCC, matrix results of combinations of methods.
+DE results, re-ranked DE results detected by the top-ranked solutions.
 
-CDO, matrix results of combinations of methods.
-
-Optimal solution, optimal combination of methods for the data.
-
-Optimal results, optimal DE results detected by the optmal solution. ## DE gene name, p.adj, foldchange (cell type 1 vs celltype2, appeared firstly in group would be celltype1).
+Z-score-metrics, Z-scores of the CDO and AUCC.
 }
 \description{
-CODE presents personalized evaluation of different combination of gene filtering methods and DE methods for individual scRNA-seq data,
-and provides with personalized optimal DE result.
+scCODE makes data-specific evaluation of different combination of gene filtering methods and DE methods scRNA-seq data,
+and provides with data-specific optimal DE result.
 }
 \examples{
+
 set.seed(123)
-scCODE(data_sample,group_sample,light=TRUE,outdir='./',nts=5)
+test=scCODE(data_sccode,group_sccode,light=TRUE,top_ranked=5)
+head(test$DE_results)
+
 }
 \author{
 Jiawei Zou
