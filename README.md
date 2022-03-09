@@ -6,10 +6,9 @@ scCODE (Consensus Optimization of Differentially Expressed gene detection for si
 ## Installation
 
 
-  necessary1 <- c('doParallel', 'samr','doSNOW','pls')
+$ necessary1 <- c('doParallel', 'samr','doSNOW','pls')
 
-
-  installed <- necessary1 %in% installed.packages()[, 'Package']
+$ installed <- necessary1 %in% installed.packages()[, 'Package']
 
 
   if (length(necessary1[!installed]) >=1){
