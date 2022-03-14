@@ -84,4 +84,4 @@ The DE results is a dataframe which contains the ranked DE gene name along with 
     
 The metrics results can be accessed by the code below, which is the Z-score of the metrics of each analysis strategies. 
 
-    results$Z-score-metrics
+    results$`Z-score-metrics`
