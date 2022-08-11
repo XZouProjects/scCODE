@@ -62,7 +62,7 @@ We can start using scCODE by running the sample data.
 The input requires a count matrix (genes by cells), data_sccode contains the CD4+ T cells (naive and activated).
 
     data<-data_sccode
-    data<-expression[1:nrow(data),] # to avoid possible bugs
+    data<-data[1:nrow(data),] # to avoid possible bugs
 
 The input also requires a vector, group, which is the cell group information of the cells. The group_sccode is the naive or activated (1 or 2) information of the data.
 
