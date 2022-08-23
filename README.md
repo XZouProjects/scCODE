@@ -51,7 +51,7 @@ If not, we can download the installation file and install them through [OGFSC](h
 
 Now, we can install the scCODE by downloading the installation file in this page (scCODE_1.0.1.0.tar.gz), and install it:
 
-    install.packages("scCODE_1.0.1.0.tar.gz", repos = NULL, type="source")
+    install.packages("scCODE_1.2.0.0.tar.gz", repos = NULL, type="source")
 
 ## Run scCODE
 
@@ -61,19 +61,15 @@ We can start using scCODE by running the sample data.
 
 The input requires a count matrix (genes by cells), data_sccode contains the CD4+ T cells (naive and activated).
 
-    data<-data_sccode
-    data<-data[1:nrow(data),] # to avoid possible bugs
-
-The input also requires a vector, group, which is the cell group information of the cells. The group_sccode is the naive or activated (1 or 2) information of the data.
-
-    group<-group_sccode
-
+    data1<-data1_sccode
+    
+    data2<-data2_sccode
 
 There are two parameters selectable. "light", True or False, default as True, run scCODE in a light version which saves time. "top_ranked", the number of top-ranked strategies selected (5-10), default as 5.
 
 Now, we can run the sample data like below:
 
-    results<-scCODE(data,group,light = TRUE,top_ranked=5)
+    results<-scCODE(data1,data2,light = TRUE,top_ranked=5)
 
 ### Output results
 
