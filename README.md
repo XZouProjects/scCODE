@@ -1,4 +1,4 @@
-![图片](https://user-images.githubusercontent.com/17633478/137343572-3b77beaf-d70e-4001-bd6a-fe27fd3f2628.png)
+![图片](https://github.com/XZouProjects/scCODE/assets/17633478/fc6837b4-5e64-48eb-9ff3-2811711e609b)![图片](https://user-images.githubusercontent.com/17633478/137343572-3b77beaf-d70e-4001-bd6a-fe27fd3f2628.png)
 # scCODE
 
 scCODE (Consensus Optimization of Differentially Expressed gene detection for single cell)
@@ -82,3 +82,37 @@ The DE results is a dataframe which contains the ranked DE gene name along with 
 The metrics results can be accessed by the code below, which is the Z-score of the metrics of each analysis strategies. 
 
     results$`Z-score-metrics`
+
+### Lotus plot, divided by detected_times
+    
+    DE_results<-results$DE_results
+
+###times by detected times
+    times<- 1
+
+    DE_results$logFC_by_D<-ifelse(DE_results$logFC>=0,DE_results$logFC+(DE_results$Detected_times-1)*times,DE_results$logFC-(DE_results$Detected_times-  1)*times)
+    DE_results$Detected_times<-as.factor(DE_results$Detected_times)
+    library(ggplot2)
+    library(RColorBrewer)
+    coul <- rev(brewer.pal(5, 'Set1'))
+
+    P<-ggplot(
+      DE_results, 
+      aes(x = logFC_by_D, 
+          y = -log10(P_adjust), 
+          colour=Detected_times)) +
+      geom_point(alpha=0.4, size=1.4) +
+      scale_color_manual(values=coul)+
+      labs(x="log2(fold change_by_detimes)",
+           y="-log10 (p-value)")+
+      theme_bw()+
+      theme(plot.title = element_text(hjust = 0.5), 
+            legend.position="right", 
+            legend.title = element_blank()
+      )
+    
+    tiff('Fig lotus_sccode.tiff', units="in", width=8, height=8, res=300, compression = 'lzw')
+    P
+    dev.off()
+
+
